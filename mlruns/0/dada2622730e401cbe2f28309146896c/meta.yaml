@@ -1,0 +1,15 @@
+artifact_uri: file:///home/yotsubyte/Proyek_MSML/Workflow-CI/mlruns/0/dada2622730e401cbe2f28309146896c/artifacts
+end_time: 1792602409083
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: dada2622730e401cbe2f28309146896c
+run_name: able-shad-900
+run_uuid: dada2622730e401cbe2f28309146896c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1792602398160
+status: 3
+tags: []
+user_id: yotsubyte

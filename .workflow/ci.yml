@@ -1,0 +1,53 @@
+name: MLflow Model Retraining CI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-train:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 2. Set up Miniconda & Python 3.12.7
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: false
+          python-version: "3.12.7"
+          channels: conda-forge
+          activate-environment: msml-ci
+
+      - name: 3. Install Dependencies
+        shell: bash -el {0}
+        run: |
+          pip install --upgrade pip
+          pip install mlflow==2.19.0 scikit-learn pandas numpy
+
+      - name: 4. Run MLflow Project (Retrain Model)
+        shell: bash -el {0}
+        working-directory: ./MLProject
+        run: |
+          mlflow run . --env-manager=local
+
+      - name: 5. Upload Model Artifacts to GitHub Actions
+        uses: actions/upload-artifact@v4
+        with:
+          name: mlflow-model-artifacts
+          path: |
+            MLProject/mlruns/
+            MLProject/saved_model/
+
+      - name: 6. Save Artifacts to GitHub Repository (Skilled Criteria)
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add MLProject/mlruns/ MLProject/saved_model/
+          git diff --staged --quiet || (git commit -m "chore: update trained model artifacts [skip ci]" && git push)
