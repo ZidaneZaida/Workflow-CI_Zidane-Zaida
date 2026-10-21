@@ -14,7 +14,7 @@ flavors:
     sklearn_version: 1.9.1
 mlflow_version: 2.19.0
 model_size_bytes: 1746658
-model_uuid: 7f2c4cfe5c624c5ab42432bd242339dc
+model_uuid: 7417c531ab0a4dc5a645c03064851cb0
 saved_input_example_info:
   artifact_path: input_example.json
   pandas_orient: split
@@ -29,4 +29,4 @@ signature:
     "required": true}, {"type": "double", "name": "Age", "required": true}]'
   outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
   params: null
-utc_time_created: '2026-10-21 17:06:46.001686'
+utc_time_created: '2026-10-21 17:17:05.839351'
